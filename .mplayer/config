@@ -1,0 +1,11 @@
+monitoraspect=16:9
+vo=vdpau
+vc=ffmpeg12vdpau,ffwmv3vdpau,ffvc1vdpau,ffh264vdpau,
+#vo=xv
+ao=alsa
+#subcp=latin2
+stop-xscreensaver=1
+font=Ariel
+subfont-text-scale=3
+subfont-osd-scale=3
+input = file=/home/<primary_username>/.mplayer/mplayer_fifo

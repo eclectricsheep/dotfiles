@@ -1,0 +1,12 @@
+color hdrdefault        blue default
+color quoted            black blue
+color signature         yellow default
+color status            green default
+color indicator         black blue
+color normal            blue default
+color sidebar_new       magenta default
+color index             magenta default "~N"
+color body              black blue      "((http|ftp|hhtps)://|news:)[^>)\"\t]+"
+color header            yellow default  ^From
+color header            yellow default  ^Subject
+color tree              white default

@@ -1,0 +1,19 @@
+###
+# <secondary_username> specific options
+###
+
+color status yellow default
+
+set pager_index_lines 	= 20
+
+set realname  = "<secondary_first_name> <secondary_last_name>"
+set from      = "<secondary_username>@<secondary_server>"
+set sendmail  = "/usr/bin/msmtp -a <secondary_username>"
+set record    = "+<secondary_username>/Sent"
+set postponed = "+<secondary_username>/Drafts"
+set signature = ~/.mutt/<secondary_username>.signature
+
+macro index E "<change-folder>+<secondary_username>/<enter><limit>~B " "search everything"
+macro index D "<save-message>+<secondary_username>/Trash<enter>"              "move message to the Trash"
+macro index S "<save-message>+<secondary_username>/Saved<enter>"              "mark message as Saved"
+

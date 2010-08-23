@@ -1,0 +1,17 @@
+###
+# <primary_username> specific options
+###
+
+color status green default
+
+set realname  = "<primary_first_name> <primary_last_name>"
+set from      = "<primary_username>@<primary_server>"
+set sendmail  = "/usr/bin/msmtp -a <primary_username>"
+set mbox      = "+<primary_username>"
+set record    = "+<primary_username>/Sent"
+set postponed = "+<primary_username>/Drafts"
+set signature = ~/.mutt/<primary_username>.signature
+
+macro index E "<change-folder>+<primary_username>/<enter><limit>~B "   "search everything"
+macro index D "<save-message>+<primary_username>/Trash<enter>"         "move message to the trash"
+macro index S "<save-message>+<primary_username>/Saved<enter>"         "mark message as saved"

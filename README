@@ -1,0 +1,101 @@
+README!
+
+Most of these files were taken and modified from:
+http://pbrisbin.com:8080/pages/content.php
+
+If you have any questions you may want to look there for some clarification.
+This is mostly a git for my personal backup needs, so the instructions here
+only cover the basics to get you started, you'll have to look through these and
+likely tweak them for your needs before they work like they should for you.
+
+Included in this git directory are my dotfiles, the most interesting ones being
+'.xmonad/xmonad.hs' '.mutt/' '.msmtprc', and '.offlineimaprc'
+
+* For XMonad:
+
+Make sure you've got xmonad, xmonad-contrib, and xmobar installed.  xmonad.hs
+references a few programs you probably don't have installed, so replace them as
+necessary (though I highly recommend dmenu).  Drop this baby into place and
+recompile; you should be good to go.  Of note is the scratchPad layer: press
+Mod4+v to toggle it (work in progress -- I hope to put a transparent instance
+of conky on this soon with some other stuff)
+
+* For Mutt:
+
+This is a multiuser setup for mutt that copies all files from an IMAP server to
+the folder ~/Mail/ which mutt then queries.  A cron job checks for new mail
+every minute by using the .bin/mailcheck.sh script (see below for setup). Make
+sure you've got msmtp, offlineimap, cron, and mutt-sidebar installed (Arch
+users: mutt-sidebar is in AUR). To quickly configure this, I've replaced all
+the values I use with the following: (you can replace them with regexps which I
+give below)
+
+# Values for your primary email account:
+<primary_first_name>
+<primary_last_name>
+<primary_username>
+<primary_server>
+<primary_password> ### You want to 'grep -r "_password>" *' and replace it by hand.
+<primary_imap_port>
+<primary_smtp_port>
+# Values for your secondary email account:
+<secondary_first_name>
+<secondary_last_name>
+<secondary_username>
+<secondary_server> ### See comment for <primary_password>
+<secondary_password>
+<secondary_imap_port>
+<secondary_smtp_port>
+
+(note to self: replace these to use camal case in the next update so the
+special characters don't need to be escaped when being replaced)
+
+1. Before replacing these, you'll want to 'grep -r "_password>" ~/*' to find
+where all these are located and then replace them by hand; the regexp string
+I'm about to show requires you to escape all non-alphanumeric characters with a
+'\' and it can get a little crazy when you have passwords like mine.
+
+2. Use this string in the command prompt to recursively search through all
+files in your current directory and replace text matching a certain string with
+the values you specify in place of ###:
+find . -type f -print0 | xargs -0 perl -i.bak -pe 's/#####/\<primary\_imap\_port\>/g'
+In this case goes through all files in your current directory and all
+directories below it, replacing <primary_imap_port> with ###, where ### is
+whatever you want it to be.  Make sure when using this that you preceed all
+non-alphanumeric characters you want to find and replace with a '\'.  Note:
+This does NOT replace filenames, ONLY the stuff inside the files. Now that
+you've got all the proper values (hopefully), make sure to go and check to make
+sure you didn't forget to escape a character.
+
+3. Go into ~/.mutt and replace the *.muttrc and *.signature file names with
+the appropriate username.
+
+4. chmod your ~/.msmtprc and ~/.offlineimaprc to 600 to prevent people from
+seeing your password:
+chmod 600 ~/.msmtprc
+chmod 600 ~/.offlineimaprc
+
+5. Download the stuff on your IMAP server (only do this once, cron takes care
+of new emails after this):
+offlineimap -o -q
+
+6. Make sure you have ~/.bin/mailrun.sh and that it's set to to executable
+(chmod 700) and then add it to a cron job like so:
+cronttab -e
+and enter this before saving the file:
+*/3 * * * * ~/.bin/mailrun.sh
+restart crond:
+sudo /etc/rc.d/crond restart
+
+7. Run mutt! It should be working now.  To hilight mailboxes, use ctrl-j 
+and ctrl-k for up and down, and ctrl-l to select it (this may have changed,
+when in doubt, check ~/.mutt/muttrc).
+
+
+If you've made it this far, then you're free to msg me on irc.freenode.org
+with any questions, though you might do better to check out the site I got
+most of this from first:
+for mutt: http://pbrisbin.com:8080/pages/mutt2.html
+and for everything else: http://pbrisbin.com:8080/pages/content.html
+
+/eclectricsheep

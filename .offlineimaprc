@@ -1,0 +1,46 @@
+[general]
+#ui = Curses.Blinkenlights
+ui = TTY.TTYUI
+#ui = Noninteractive.Quiet
+#ui = Noninteractive.Basic
+accounts = <primary_username>,<secondary_username>
+
+[Account <primary_username>]
+localrepository = <primary_username>.local
+remoterepository = <primary_username>.remote
+autorefresh = 0 
+quick = 0
+
+[Repository <primary_username>.local]
+type = Maildir
+localfolders = ~/Mail/<primary_username>
+
+[Repository <primary_username>.remote]
+type = IMAP
+ssl = yes
+remoteuser = <primary_username>@<primary_server>
+remotehost = <primary_server>
+remoteport = <primary_imap_port>
+remotepass = <primary_password>
+realdelete = no
+
+[Account <secondary_username>]
+localrepository = <secondary_username>.local
+remoterepository = <secondary_username>.remote
+autorefresh = 0
+quick = 0
+
+[Repository <secondary_username>.local]
+type = Maildir
+localfolders = ~/Mail/<secondary_username>
+
+[Repository <secondary_username>.remote]
+type = IMAP
+ssl = yes
+remoteuser = <secondary_username>@<secondary_server>
+remotehost = <secondary_server>
+remoteport = <secondary_imap_password>
+remotepass = <secondary_password>
+realdelete = no
+
+# vim: ft=cfg tw=0

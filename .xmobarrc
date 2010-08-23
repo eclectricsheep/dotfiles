@@ -1,0 +1,16 @@
+Config { font     = "xft:Dejavu Sans Mono:pixelsize=10:antialias=true:hinting=true"
+           , bgColor  = "#121212"
+           , fgColor  = "#7A7A7A"
+           , position = Top
+           , lowerOnStart = True
+           , commands = [ Run Date "%d-%m" "theDate0" 10
+                        , Run Date "%H:%M" "theDate1" 10
+                        , Run StdinReader
+                        , Run MultiCpu ["-L","7","-H","50","-l","#B0B0B0","-n","#B0B0B0","-h","#B0B0B0"] 10
+                        , Run Memory ["-t","Mem: <usedratio>%","-L","15","-H","50","-l","#B0B0B0","-n","#B0B0B0","-h","#B0B0B0"] 10
+                        ]
+            , sepChar  = "%"
+           , alignSep = "}{"
+           , template = " %StdinReader% }{ <fc=#7A7A7A> [ %multicpu% // %memory% ]</fc> <fc=#7A7A7A>::</fc> <fc=#7A7A7A>[</fc> <fc=#B0B0B0>%theDate0%</fc> <fc=#7A7A7A>//</fc> <fc=#B0B0B0>%theDate1%</fc> <fc=#7A7A7A>]</fc> "
+}
+           

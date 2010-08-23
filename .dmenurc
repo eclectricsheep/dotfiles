@@ -1,0 +1,1 @@
+DMENU='dmenu_run -i -b -sf #F92672 -nb #F2B2B2B -sb #2B2B2B -nf #00E0FF'
